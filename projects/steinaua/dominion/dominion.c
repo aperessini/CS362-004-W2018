@@ -645,14 +645,17 @@ int getCost(int cardNumber)
 
 int smithyFunction(struct gameState * state, int currentPlayer, int i, int handPos)
 {
-	printf("this is the smithy function created for assignment 2\n");
+	//printf("this is the smithy function created for assignment 2\n");
 	//+3 Cards originally, +13 cards for ASSIGNMENT 2 bug
+	//printf("Player %d handcount: %d\n", currentPlayer, state->handCount[currentPlayer]);
 	for (i = 0; i < 13; i++)
 	{
 		drawCard(currentPlayer, state);
+		//printf("Player %d handcount: %d\n", currentPlayer, state->handCount[currentPlayer]);
 	}
 	//discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
+	//printf("Player %d handcount: %d\n", currentPlayer, state->handCount[currentPlayer]);
 	return 0;
 }
 
