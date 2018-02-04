@@ -40,7 +40,7 @@ int assertTrue(int statement)
 
 int main()
 {	
-	int i, j, handCount;
+	int i, j, handCount, passFlag;
 	int maxHandCount = 5, seed = 500;
 	int k[10] = {adventurer, council_room, embargo, sea_hag, outpost, smithy, village, baron, tribute, great_hall};
 	struct gameState GS;
@@ -52,20 +52,21 @@ int main()
 		for(handCount = -1; handCount < maxHandCount; handCount++)
 		{
 
-			printf("Player %d should have %d cards in their hand.\n", i, handCount);
+			//printf("Player %d should have %d cards in their hand.\n", i, handCount);
 			memset(&GS, 23, sizeof(struct gameState)); //clear game state
 			j = initializeGame(MAX_PLAYERS, k, seed, &GS); //initialize new game
 			GS.whoseTurn = i;
 			GS.handCount[i] = handCount;
 			if(assertTrue(numHandCards(&GS) == handCount))
-				printf("Test passed.\n");
+				passFlag = 1; //printf("Test passed.\n");
 			else
-				printf("Test failed.\n");
+				printf("Test failed on player %d with handcount of %d.\n", i, handCount);
 
 		}
 
 	} 
-
+	if(passFlag)
+		printf("All tests passed!\n");
 
 
 	return 0;

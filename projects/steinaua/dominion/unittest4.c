@@ -37,7 +37,7 @@ int assertTrue(int statement)
 
 int main()
 {	
-	int i, j, c, supplycount;
+	int i, j, c, supplycount, passFlag;
 	int maxSupplyCount = 10, seed = 500;
 	int k[10] = {adventurer, council_room, embargo, sea_hag, outpost, smithy, village, baron, tribute, great_hall};
 	struct gameState GS;
@@ -49,21 +49,26 @@ int main()
 		for(c = curse; c < treasure_map; c++)
 		{
 
-			printf("Supply count of card %d should be %d.\n", c, supplycount);
+			//printf("Supply count of card %d should be %d.\n", c, supplycount);
 			memset(&GS, 23, sizeof(struct gameState)); //clear game state
 			j = initializeGame(MAX_PLAYERS, k, seed, &GS); //initialize new game
 			GS.whoseTurn = i;
 			GS.supplyCount[c] = supplycount;
 			if(assertTrue(supplyCount(c, &GS) == supplycount))
-				printf("Test passed.\n");
-			else
-				printf("Test failed.\n");
+				passFlag = 1; //printf("Test passed.\n");
+			else{
+				printf("Test failed on card %d and supply count %d\n", c, supplycount);
+				break;
+			}
 
 		}
 
 	} 
 
-
+	if(passFlag)
+	{
+		printf("All tests passed!\n");
+	}
 
 	return 0;
 }

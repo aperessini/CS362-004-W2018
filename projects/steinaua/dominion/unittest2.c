@@ -59,7 +59,7 @@ int assertTrue(int statement)
 
 int main()
 {	
-	int i, j, a, c, handCount, deckCount, discardCount;
+	int i, j, a, c, handCount, deckCount, discardCount, passFlag;
 	int maxHandCount = 5, maxDeckCount = 5, maxDiscardCount = 5, seed = 500;
 	int k[10] = {adventurer, council_room, embargo, sea_hag, outpost, smithy, village, baron, tribute, great_hall};
 	struct gameState GS;
@@ -77,7 +77,7 @@ int main()
 		for(c = curse; c < treasure_map; c++)
 		{
 			//int k[10] = {c, c, c, c, c, c, c, c, c, c};
-			printf("Player %d should have %d of card %d combined in their hand, deck, and discard pile.\n", i, handCount+deckCount+discardCount, c);
+			//printf("Player %d should have %d of card %d combined in their hand, deck, and discard pile.\n", i, handCount+deckCount+discardCount, c);
 			memset(&GS, 23, sizeof(struct gameState)); //clear game state
 			//printf("Initializing Game\n");
 			j = initializeGame(MAX_PLAYERS, k, seed, &GS); //initialize new game
@@ -108,9 +108,11 @@ int main()
 			
 			
 			if(assertTrue(fullDeckCount(i, c, &GS) == handCount + deckCount + discardCount))
-				printf("Test passed.\n");
-			else
-				printf("Test failed.\n");
+				passFlag = 1;//printf("Test passed.\n");
+			else{
+				printf("Test for player %d w/ deckCount %d, handCount %d, discardCount %d and card no. %d failed.\n", i, deckCount, handCount, discardCount, c);
+				break;
+			}
 			//free(GS);
 		}
 	      }
@@ -118,5 +120,7 @@ int main()
 	  }
 	} 
 
+	if(passFlag)
+		printf("All tests passed!\n");
 	return 0;
 }

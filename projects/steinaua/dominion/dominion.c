@@ -661,16 +661,18 @@ int smithyFunction(struct gameState * state, int currentPlayer, int i, int handP
 
 int adventurerFunction(struct gameState * state, int drawntreasure, int currentPlayer, int temphand[], int cardDrawn, int z)
 {
-	printf("this is the adventurer function created for assignment 2\n");
+	//printf("this is the adventurer function created for assignment 2\n");
 	while(drawntreasure<2){
         if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
           shuffle(currentPlayer, state);
         }
         drawCard(currentPlayer, state);
         cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-        if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-          drawntreasure += 0; //ASSIGNMENT 2 Bug:drawntreasure never increments so the while loop will never exit.
-        else{
+        if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
+          //drawntreasure += 0; //ASSIGNMENT 2 Bug:drawntreasure never increments so the while loop will never exit.
+          drawntreasure += 2; //ASSIGNMENT 3: removed infinite loop and put in this bug that increments drawntreasure by 2 instead of 1.
+        }
+	else{
           temphand[z]=cardDrawn;
           state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
           z++;
@@ -775,13 +777,16 @@ int embargoFunction(struct gameState * state, int choice1, int handPos, int curr
 
 int seaHagFunction(struct gameState * state, int currentPlayer, int i)
 {
-      printf("this is the sea hag function created for assignment 2\n");
+      //printf("this is the sea hag function created for assignment 2\n");
       for (i = 0; i < state->numPlayers; i++){
         //if (i != currentPlayer){ //ASSIGNMENT 2 bug:forgetting the if statement wil cause the card to affect the player who plays it, when it should only affect all other players except the player who plays it
           state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];                        state->deckCount[i]--;
           state->discardCount[i]++;
+	  //printf("In sea hag function: deck count is %d before adding curse\n", state->deckCount[i]);
           state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
+	  //printf("In sea hag function: deck count is %d after adding curse\n", state->deckCount[i]);
         //}
+          //printf("In sea hag function: deck top card is %d\n", state->deck[i][state->deckCount[i] - 1]);
       }
       return 0;
 }
