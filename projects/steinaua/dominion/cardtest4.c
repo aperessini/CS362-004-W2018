@@ -2,7 +2,7 @@
  *Aaron Peressini
  *CS 362 Winter 2018
  *Assignment 3 : cardtest4.c
- *card test for smithy card
+ *card test for council_room card
  *
  *Include the following in your makefile:
  *

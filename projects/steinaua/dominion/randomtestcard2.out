@@ -1,3 +1,148 @@
+TESTING CARD council room
+council room failed 0 of 1000 random tests.
+Failure messages include: All tests passed. 
+Function 'updateCoins'
+Lines executed:100.00% of 11
+No branches
+No calls
+
+Function 'gainCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'discardCard'
+Lines executed:84.62% of 13
+No branches
+No calls
+
+Function 'cardEffect'
+Lines executed:10.43% of 163
+No branches
+No calls
+
+Function 'seaHagFunction'
+Lines executed:0.00% of 6
+No branches
+No calls
+
+Function 'embargoFunction'
+Lines executed:0.00% of 8
+No branches
+No calls
+
+Function 'tributeFunction'
+Lines executed:0.00% of 34
+No branches
+No calls
+
+Function 'adventurerFunction'
+Lines executed:0.00% of 15
+No branches
+No calls
+
+Function 'smithyFunction'
+Lines executed:0.00% of 5
+No branches
+No calls
+
+Function 'getCost'
+Lines executed:0.00% of 30
+No branches
+No calls
+
+Function 'drawCard'
+Lines executed:36.36% of 22
+No branches
+No calls
+
+Function 'getWinners'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'scoreFor'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'isGameOver'
+Lines executed:0.00% of 10
+No branches
+No calls
+
+Function 'endTurn'
+Lines executed:0.00% of 20
+No branches
+No calls
+
+Function 'whoseTurn'
+Lines executed:100.00% of 2
+No branches
+No calls
+
+Function 'fullDeckCount'
+Lines executed:0.00% of 9
+No branches
+No calls
+
+Function 'supplyCount'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'handCard'
+Lines executed:0.00% of 3
+No branches
+No calls
+
+Function 'numHandCards'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'buyCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'playCard'
+Lines executed:0.00% of 14
+No branches
+No calls
+
+Function 'shuffle'
+Lines executed:93.75% of 16
+No branches
+No calls
+
+Function 'initializeGame'
+Lines executed:95.16% of 62
+No branches
+No calls
+
+Function 'kingdomCards'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'newGame'
+Lines executed:0.00% of 3
+No branches
+No calls
+
+Function 'compare'
+Lines executed:83.33% of 6
+No branches
+No calls
+
+File 'dominion.c'
+Lines executed:23.76% of 543
+Branches executed:26.29% of 388
+Taken at least once:18.56% of 388
+Calls executed:11.70% of 94
+Creating 'dominion.c.gcov'
+
         -:    0:Source:dominion.c
         -:    0:Graph:dominion.gcno
         -:    0:Data:dominion.gcda
