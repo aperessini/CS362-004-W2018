@@ -45,22 +45,6 @@ void generateRandomValues(struct gameState * GS, int * k)
 	GS->whoseTurn = rand() % numPlayers;
 	//printf("Num players is %d, GS->whoseTurn is %d\n", numPlayers, GS->whoseTurn);
 	GS->playedCardCount = 0;
-	/*for(i = 0; i < numPlayers; i++)
-        {
-	    
-	    GS->handCount[i] = 5;
-            GS->deckCount[i] = 5;
-            GS->discardCount[i] = 5;
-	    for(y = 0; y < 5; y++)
-            {
-	        gainCard(y, &GS, 0, i);
-	        gainCard(y, &GS, 1, i);
-	        gainCard(y, &GS, 2, i);
-            }
-	    
-	}
-        */
-	//printf("%d\n", GS->handCount);
 	GS->handCount[GS->whoseTurn] = (rand() % 10) + 1; //Hand: 1-10 cards
 	//printf("Handcount: %d\n", GS->handCount[GS->whoseTurn]);
 	GS->deckCount[GS->whoseTurn] = (rand() % 9) + 12; //Deck: 2-10 cards
