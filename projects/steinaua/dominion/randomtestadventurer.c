@@ -66,13 +66,7 @@ void generateRandomValues(struct gameState * GS, int * k, int * treasureCount)
                 val = GS->deck[GS->whoseTurn][i] = rand() % 27;
 		if(val > 3 && val < 7)
 			*treasureCount++;
-		/*if(i > GS->deckCount[GS->whoseTurn]-3 && *treasureCount < 1)
-		{
-			//Make sure deck has at least 1 treasure card
-			GS->deck[GS->whoseTurn][i] = (rand() % 3) + 4;
-		}*/
-        }
-
+	}
 	//Fill discard
 	for(i = 0; i < GS->discardCount[GS->whoseTurn]; i++)
         {
@@ -101,65 +95,41 @@ int main()
 	char failMsg[255];
 	memset(failMsg, '\0', 255);
 	printf("TESTING CARD %s\n", TESTCARD);
-	while(count < 1000)
+	while(count < 10000)
 	{
 		count++;
 		generateRandomValues(&GS, k, &treasureCount);
 		memcpy(&testGS, &GS, sizeof(struct gameState));
 		cardEffect(adventurer, choice1, choice2, choice3, &testGS, handpos, &bonus);
 		updateCoins(testGS.whoseTurn ,&testGS, 0);
+		int failFlag = 0;
 		if(testGS.handCount[testGS.whoseTurn] != GS.handCount[GS.whoseTurn] + 2)
 		{
 			if(debug1)
 			{
-			    strcat(failMsg, "Exactly two cards were not added to hand. ");
+			    strcat(failMsg, "Exactly two cards were not added to the current player's hand. ");
 			    debug1 = 0;
 			}
 			failCount++;
+			failFlag = 1;
 		} 
-		else if(testGS.coins < GS.coins + 2)
+		if(testGS.coins < GS.coins + 2)
 		{
 			if(debug2)
 			{
-			    strcat(failMsg, "At least one card added was not a treasure card. ");
+			    strcat(failMsg, "Two treasure cards were not added to the current player's hand. ");
 			    debug2 = 0;
 			}
-			failCount++;
+			if(!failFlag)
+			{
+			    failCount++;
+			    failFlag = 1;
+			}
+			
 		}
 	}
-	printf("%s failed %d of 1000 random tests.\nFailure messages include: %s\n", TESTCARD, failCount, failMsg);
+	printf("%s failed %d of 10000 random tests.\nFailure messages include: %s\n", TESTCARD, failCount, failMsg);
 
-	/*printf("TESTING CARD %s\n", TESTCARD);
-
-	for(i = 0; i < MAX_PLAYERS; i++)
-	{
-		for(coinCard = 4; coinCard < 7; coinCard++)
-		{
-			printf("Player %d should have %d coins.\n", i, 7*(coinCard-3));
-			memset(&GS, 23, sizeof(struct gameState)); //clear game state
-			j = initializeGame(MAX_PLAYERS, k, seed, &GS); //initialize new game
-			GS.deckCount[i] = 0;
-			GS.handCount[i] = 0;
-			for(x = 0; x < 5; x++)
-			{
-				gainCard(coinCard, &GS, 1, i);
-				gainCard(coinCard, &GS, 2, i);
-			}
-			GS.whoseTurn = i;
-			updateCoins(i, &GS, 0);
-			//GS.handCount[i] = 5;
-			memcpy(&testGS, &GS, sizeof(struct gameState));
-			//printf("Player %d handcount before smithy: testGS %d, GS %d\n", i, testGS.handCount[i], GS.handCount[i]);
-			cardEffect(adventurer, choice1, choice2, choice3, &testGS, handpos, &bonus);
-			updateCoins(i, &testGS, 0);
-			if(assertTrue(testGS.coins == GS.coins + 2*(coinCard-3)))
-				printf("Test passed.\n\n");
-			else{
-				printf("Test failed. Player %d testGS coins: %d, GS coins: %d\n\n", i, testGS.coins, GS.coins + 2*(coinCard-3));
-			}
 	
-		}	 
-	}
-	*/
 	return 0;
 }

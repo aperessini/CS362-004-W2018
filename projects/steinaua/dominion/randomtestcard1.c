@@ -9,7 +9,7 @@
  *randomtestcard1: randomtestcard1.c dominion.o rngs.o
  *	gcc -o randomtestcard1 randomtestcard1.c -g dominion.o rngs.o $(CFLAGS)
  *
- * 
+ *discardCard() doesn't actually have any effect on discard pile
  *----------------------
  */
 
@@ -83,7 +83,7 @@ int main()
 	char failMsg[255];
 	memset(failMsg, '\0', 255);
 	printf("TESTING CARD %s\n", TESTCARD);
-	while(count < 1000)
+	while(count < 10000)
 	{
 		count++;
 		//printf("Entering genRanVal\n");
@@ -91,61 +91,41 @@ int main()
 		//printf("Entering memcpy\n");
 		memcpy(&testGS, &GS, sizeof(struct gameState));
 		//printf("Entering cardEffect\n");
+		//printf("Test dis count: %d, GS dis count: %d ", testGS.discardCount[testGS.whoseTurn], GS.discardCount[GS.whoseTurn]);
+		//printf("BEFORE Test dis count: %d, deck count: %d, GS dis count: %d, deck count: %d  ", testGS.discardCount[testGS.whoseTurn], testGS.deckCount[testGS.whoseTurn], GS.discardCount[GS.whoseTurn], GS.deckCount[GS.whoseTurn]);
 		cardEffect(smithy, choice1, choice2, choice3, &testGS, handpos, &bonus);
 		//printf("Entering updateCoins\n");
+		int failFlag = 0;
 		updateCoins(testGS.whoseTurn ,&testGS, 0);
-		if(testGS.handCount[testGS.whoseTurn] != GS.handCount[GS.whoseTurn] + 3)
+		if(testGS.handCount[testGS.whoseTurn] != GS.handCount[GS.whoseTurn] + 2)
 		{
 			if(debug1)
 			{
-			    strcat(failMsg, "Exactly three cards were not added to hand. ");
+			    strcat(failMsg, "Exactly one card was not discarded. ");
 			    debug1 = 0;
 			}
 			failCount++;
-		} 
-		else if(testGS.discardCount[testGS.whoseTurn] <= GS.discardCount[GS.whoseTurn])
+			failFlag = 1;
+		}
+		//printf("AFTER Test dis count: %d, deck count: %d, GS dis count: %d, deck count: %d \n ", testGS.discardCount[testGS.whoseTurn], testGS.deckCount[testGS.whoseTurn], GS.discardCount[GS.whoseTurn], GS.deckCount[GS.whoseTurn]); 
+		if(testGS.discardCount[testGS.whoseTurn] + testGS.deckCount[testGS.whoseTurn] + 3 != GS.discardCount[GS.whoseTurn] + GS.deckCount[GS.whoseTurn])
 		{
 			if(debug2)
 			{
-			    strcat(failMsg, "One card was not added to discard pile. ");
+			    strcat(failMsg, "Exactly three cards were not added to hand. ");
 			    debug2 = 0;
 			}
-			failCount++;
+			if(!failFlag)
+			{
+			    failCount++;
+			    failFlag = 1;
+			}
 		}
 	}
-	printf("%s failed %d of 1000 random tests.\nFailure messages include: %s\n", TESTCARD, failCount, failMsg);
+	if(!failCount)
+	    strcat(failMsg, "All tests passed!\n");
+	printf("%s failed %d of 10000 random tests.\nFailure messages include: %s\n", TESTCARD, failCount, failMsg);
 
-	/*printf("TESTING CARD %s\n", TESTCARD);
-
-	for(i = 0; i < MAX_PLAYERS; i++)
-	{
-		for(coinCard = 4; coinCard < 7; coinCard++)
-		{
-			printf("Player %d should have %d coins.\n", i, 7*(coinCard-3));
-			memset(&GS, 23, sizeof(struct gameState)); //clear game state
-			j = initializeGame(MAX_PLAYERS, k, seed, &GS); //initialize new game
-			GS.deckCount[i] = 0;
-			GS.handCount[i] = 0;
-			for(x = 0; x < 5; x++)
-			{
-				gainCard(coinCard, &GS, 1, i);
-				gainCard(coinCard, &GS, 2, i);
-			}
-			GS.whoseTurn = i;
-			updateCoins(i, &GS, 0);
-			//GS.handCount[i] = 5;
-			memcpy(&testGS, &GS, sizeof(struct gameState));
-			//printf("Player %d handcount before smithy: testGS %d, GS %d\n", i, testGS.handCount[i], GS.handCount[i]);
-			cardEffect(adventurer, choice1, choice2, choice3, &testGS, handpos, &bonus);
-			updateCoins(i, &testGS, 0);
-			if(assertTrue(testGS.coins == GS.coins + 2*(coinCard-3)))
-				printf("Test passed.\n\n");
-			else{
-				printf("Test failed. Player %d testGS coins: %d, GS coins: %d\n\n", i, testGS.coins, GS.coins + 2*(coinCard-3));
-			}
-	
-		}	 
-	}
-	*/
+			
 	return 0;
 }
