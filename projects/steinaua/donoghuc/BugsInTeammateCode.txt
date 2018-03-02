@@ -1,0 +1,9 @@
+BUGS FOUND IN donoghuc DOMINION CODE
+------------------------------------
+1. In smithy_function, the smithy card lets the player draw 4 cards when it is only supposed to allow for 3 cards to be drawn. This bug was found using my cardtest1 unit test for the smithy card, as well as my randomtestcard1 random test for the smithy card.
+
+2. Even though my teammate did not refactor the code for the sea_hag card, my cardtest3 unit test for sea_hag still found the bug that incorrectly decrements the deck count.
+
+3. In council_room_function, the council_room card is not granting an extra buy to the current player as it should. This bug was found using my cardtest4 unit test for the council_room card, as well as my randomtestcard2 random test for council_room.
+
+
