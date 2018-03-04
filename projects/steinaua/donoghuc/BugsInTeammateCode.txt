@@ -1,9 +1,71 @@
-BUGS FOUND IN donoghuc DOMINION CODE
-------------------------------------
-1. In smithy_function, the smithy card lets the player draw 4 cards when it is only supposed to allow for 3 cards to be drawn. This bug was found using my cardtest1 unit test for the smithy card, as well as my randomtestcard1 random test for the smithy card.
+BUGS FOUND IN donoghuc DOMINION CODE|
+------------------------------------|
 
-2. Even though my teammate did not refactor the code for the sea_hag card, my cardtest3 unit test for sea_hag still found the bug that incorrectly decrements the deck count.
+bug-report-1
 
-3. In council_room_function, the council_room card is not granting an extra buy to the current player as it should. This bug was found using my cardtest4 unit test for the council_room card, as well as my randomtestcard2 random test for council_room.
+Class: Card Bug
 
+Reported by: Aaron Peressini
+3/4/2018
+steinaua@oregonstate.edu
+
+Product: dominion.c	Version: https://github.com/aperessini/CS362-004-W2018/tree/steinaua-assignment-5/projects/steinaua/donoghuc/dominion
+
+Is it reproducible: Yes
+
+DESCRIPTION
+===========
+In smithy_function, the smithy card lets the player draw 4 cards when it is only supposed to allow for 3 cards to be drawn. This bug was found using my cardtest1 unit test for the smithy card, as well as my randomtestcard1 random test for the smithy card.
+
+STEPS TO REPRODUCE
+------------------
+1. Make dominion.o, rngs.o, and cardtest1steinaua files using gcc compiler
+2. Run cardtest1steinaua
+3. Examine test results
+
+EXPECTED RESULTS
+----------------
+Playing the Smithy card should allow the player to draw 3 cards and add them to their hand.
+
+ACTUAL RESULTS
+--------------
+Playing the Smithy card lets the player draw 4 cards and add them to their hand.
+
+--------------------------------------------------------------------------------
+
+bug-report-2
+
+Class: Card Bug
+
+Reported by: Aaron Peressini
+3/4/2018
+steinaua@oregonstate.edu
+
+Product: dominion.c     Version: https://github.com/aperessini/CS362-004-W2018/tree/steinaua-assignment-5/projects/steinaua/donoghuc/dominion
+
+Is it reproducible: Yes
+
+DESCRIPTION
+===========
+In council_room_function, the council_room card is not granting an extra buy to the current player as it should. This bug was found using my cardtest4 unit test for the council_room card, as well as my randomtestcard2 random test for council_room.
+
+STEPS TO REPRODUCE
+------------------
+1. Make dominion.o, rngs.o, and cardtest4steinaua files using gcc compiler
+2. Run cardtest4steinaua
+3. Examine test results
+
+EXPECTED RESULTS
+----------------
+Playing the council_room card should grant the current player an extra buy.
+
+ACTUAL RESULTS
+--------------
+Playing the council_room card does not grant the current player an extra buy.
+
+--------------------------------------------------------------------------------
+Other Bugs|
+----------
+
+* Even though my teammate did not refactor the code for the sea_hag card, my cardtest3 unit test for sea_hag still found the bug that incorrectly decrements the deck count.
 
